@@ -1,0 +1,51 @@
+---
+title: "BaoVan_Sim_HW5"
+author: "Bao Van"
+date: "11/15/2021"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## Question 1
+
+```{r}
+pick_letter <- function(x) {
+  return(sample(LETTERS,1))
+}
+```
+```{r}
+pick_letter()
+```
+
+## Question 2
+
+```{r}
+library(parallel)
+```
+```{r}
+a <- c(NA, 100000)
+start <- Sys.time()
+a <- lapply(1:100000, pick_letter)
+end <- Sys.time()
+end - start
+```
+```{r}
+detectCores()
+no_cores <- detectCores() - 1
+cl <- makeCluster(no_cores)
+```
+```{r}
+b <- c(NA, 100000)
+start <- Sys.time()
+b <- parLapply(cl, 1:100000, pick_letter)
+end <- Sys.time()
+end - start
+```
+
+
+
+
+
